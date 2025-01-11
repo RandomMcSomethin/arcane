@@ -1,4 +1,4 @@
-package com.example;
+package io.github.randommcsomethin.arcane;
 
 import net.fabricmc.api.ClientModInitializer;
 

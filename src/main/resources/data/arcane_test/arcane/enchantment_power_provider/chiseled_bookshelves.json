@@ -1,0 +1,13 @@
+{
+  "type": "arcane:block_state",
+  "providers": [
+    {"states": [{"slot_0_occupied": "true"}],"amount": 0.25},
+    {"states": [{"slot_1_occupied": "true"}],"amount": 0.25},
+    {"states": [{"slot_2_occupied": "true"}],"amount": 0.25},
+    {"states": [{"slot_3_occupied": "true"}],"amount": 0.25},
+    {"states": [{"slot_4_occupied": "true"}],"amount": 0.25},
+    {"states": [{"slot_5_occupied": "true"}],"amount": 0.25}
+  ],
+  "provider_blocks": "#arcane_test:chiseled_bookshelves",
+  "additive": true
+}

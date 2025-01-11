@@ -1,0 +1,14 @@
+{
+  "type": "arcane:block_state",
+  "providers": [
+    {
+      "states": [
+        {
+            "lit": "true"
+        }
+      ],
+      "amount": 1
+    }
+  ],
+  "provider_blocks": "#arcane_test:provides_1_when_lit"
+}

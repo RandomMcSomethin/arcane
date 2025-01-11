@@ -1,0 +1,12 @@
+{
+	"required": true,
+	"package": "io.github.randommcsomethin.arcane.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"EnchantmentScreenHandlerMixin",
+		"EnchantingTableBlockMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

@@ -1,0 +1,42 @@
+{
+  "type": "arcane:block_state",
+  "providers": [
+    {
+      "states": [
+        {
+            "candles": "1",
+            "lit": "true"
+        }
+      ],
+      "amount": 0.25
+    },
+    {
+      "states": [
+        {
+            "candles": "2",
+            "lit": "true"
+        }
+      ],
+      "amount": 0.5
+    },
+    {
+      "states": [
+        {
+            "candles": "3",
+            "lit": "true"
+        }
+      ],
+      "amount": 0.75
+    },
+    {
+      "states": [
+        {
+            "candles": "4",
+            "lit": "true"
+        }
+      ],
+      "amount": 1
+    }
+  ],
+  "provider_blocks": "#arcane_test:candles_for_enchanting"
+}

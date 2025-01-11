@@ -1,0 +1,5 @@
+{
+  "type": "arcane:constant",
+  "amount": 1,
+  "provider_blocks": "#arcane_test:provides_constant_1_power"
+}

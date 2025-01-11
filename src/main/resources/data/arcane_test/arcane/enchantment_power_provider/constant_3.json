@@ -1,0 +1,5 @@
+{
+  "type": "arcane:constant",
+  "amount": 3,
+  "provider_blocks": "#arcane_test:mob_heads"
+}
