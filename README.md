@@ -7,6 +7,9 @@ In vanilla Minecraft, you can add entries to the `enchantment_power_provider` ta
 Arcane offers a solution by adding **data driven enchanting power providers**, which can be much more flexible in their parameters.
 
 ## Compatibility:
+### Server Vs. Client:
+Arcane is entirely server-side, so vanilla clients can connect to modded servers with nearly everything functioning as expected.  However, enchanting particles from modded power providers will not display on vanilla clients unless they also install the mod.
+### With Other Mods:
 Arcane does not interact in any way with vanilla nor modded enchanting power providers.  This decision was made to maintain mod compatibility first and foremost.  In addition, the additions to base code are simple and minimal.  However, there are a few areas where Arcane may run into compatibility issues, in particular with:
 - Mods that affect the enchanting table's detection radius.  Arcane mainly relies on vanilla functionality for this, so it may place nicely depending on how responsibly this change was implemented.  However, an increased radius may result in some funny business concerning obstruction detection due to how it is calculated (a copy of vanilla's detection system).
 - Mods that completely throw out the vanilla enchanting system.  It should be obvious why compatibility issues would arise here.
