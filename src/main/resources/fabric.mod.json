@@ -2,16 +2,16 @@
 	"schemaVersion": 1,
 	"id": "arcane",
 	"version": "${version}",
-	"name": "Example mod",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"name": "Arcane",
+	"description": "Adding more data-driven customizability to enchanting power sources.",
 	"authors": [
-		"Me!"
+		"RandomMcSomethin"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://github.com/RandomMcSomethin/arcane",
+		"sources": "https://github.com/RandomMcSomethin/arcane"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/arcane/icon.png",
 	"environment": "*",
 	"entrypoints": {
@@ -19,7 +19,7 @@
 			"io.github.randommcsomethin.arcane.ArcaneMain"
 		],
 		"client": [
-          "io.github.randommcsomethin.arcane.ExampleModClient"
+          "io.github.randommcsomethin.arcane.ArcaneClient"
 		]
 	},
 	"mixins": [

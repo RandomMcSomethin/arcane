@@ -1,0 +1,5 @@
+{
+  "type": "arcane:constant",
+  "amount": 0.2,
+  "provider_blocks": "#arcane_test:provides_constant_fifth_power"
+}

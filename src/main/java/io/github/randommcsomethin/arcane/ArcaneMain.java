@@ -2,7 +2,6 @@ package io.github.randommcsomethin.arcane;
 
 import com.google.gson.JsonElement;
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.JsonOps;
 import io.github.randommcsomethin.arcane.data.*;
 import net.fabricmc.api.ModInitializer;
 
@@ -22,8 +21,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.spongepowered.asm.mixin.Dynamic;
-import org.spongepowered.asm.mixin.injection.selectors.ITargetSelector;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -52,9 +49,33 @@ public class ArcaneMain implements ModInitializer {
 		{
 			dynamicRegistryView.registerEntryAdded(CONFIGURED_ENCHANTMENT_POWER_PROVIDER_TYPES,
 			(rawid, id, object) -> {
-				LOGGER.info("Loaded enchantment power provider type " + id);
+				//LOGGER.info("Loaded enchantment power provider type " + id);
 			});
 		});
+		ResourceManagerHelper.get(ResourceType.SERVER_DATA).registerReloadListener(
+			new SimpleSynchronousResourceReloadListener() {
+			   @Override
+			   public Identifier getFabricId() {
+				   return Identifier.of("arcane", "resources");
+			   }
+
+			   @Override
+			   public void reload(ResourceManager manager) {
+				   // clear
+				   // load entries
+				   // types
+				   for (Map.Entry<Identifier, Resource> entry : manager.findResources("arcane/enchantment_power_provider_type", path -> path.getPath().endsWith(".json")).entrySet()) {
+					   try (InputStream stream = manager.getResource(entry.getKey()).get().getInputStream()) {
+						   String jsonString = new String(stream.readAllBytes(), StandardCharsets.UTF_8);
+						   JsonElement json = JsonHelper.deserialize(jsonString);
+						   // LOGGER.info("Loaded enchantment power provider type " + entry.getKey() + " with data {}", json);
+					   } catch(Exception e) {
+						   LOGGER.error("Could not load enchantment power provider type " + entry.getKey() + ":\n" + e.getMessage());
+					   }
+				   }
+			   }
+		   }
+		);
 		LOGGER.info("Hello Fabric world!");
 	}
 
@@ -62,9 +83,7 @@ public class ArcaneMain implements ModInitializer {
 	public static <T extends EnchantmentPowerProviderType> EnchantmentPowerProviderTypes<T> register(String id, EnchantmentPowerProviderTypes<T> type) {
 		return Registry.register(EnchantmentPowerProviderTypes.REGISTRY, Identifier.of(MOD_ID, id), type);
 	}
-	public static <T extends EnchantmentPowerProviderType> ConfiguredEnchantmentPowerProviderTypes<T> registerConfiguredType(String id, ConfiguredEnchantmentPowerProviderTypes<T> type) {
-		return Registry.register(ConfiguredEnchantmentPowerProviderTypes.REGISTRY, Identifier.of(MOD_ID, id), type);
-	}
+
 	public static boolean canReachBlock(World world, BlockPos table, BlockPos offset) {
 		return world.getBlockState(table.add(offset.getX()/2, offset.getY(), offset.getZ()/2)).isIn(BlockTags.ENCHANTMENT_POWER_TRANSMITTER);
 	}

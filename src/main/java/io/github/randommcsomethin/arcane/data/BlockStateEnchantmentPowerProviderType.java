@@ -1,7 +1,6 @@
 package io.github.randommcsomethin.arcane.data;
 
 import com.mojang.serialization.Codec;
-import com.mojang.serialization.DataResult;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.github.randommcsomethin.arcane.ArcaneMain;
@@ -18,11 +17,15 @@ import java.util.List;
 
 public class BlockStateEnchantmentPowerProviderType implements EnchantmentPowerProviderType {
     // codec
-    public static final MapCodec<BlockStateEnchantmentPowerProviderType> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+    public static final MapCodec<BlockStateEnchantmentPowerProviderType> CODEC = RecordCodecBuilder.mapCodec(
+            instance -> instance.group(
             StatePowerProvider.CODEC.codec().listOf().fieldOf("providers").forGetter(BlockStateEnchantmentPowerProviderType::getProviders),
             Codecs.TAG_ENTRY_ID.fieldOf("provider_blocks").forGetter(BlockStateEnchantmentPowerProviderType::getProviderBlocks),
             Codec.BOOL.optionalFieldOf("additive", false).forGetter(BlockStateEnchantmentPowerProviderType::getIsAdditive)
-    ).apply(instance, BlockStateEnchantmentPowerProviderType::new)).validate(BlockStateEnchantmentPowerProviderType::blocksHaveProperties);
+    ).apply(instance, BlockStateEnchantmentPowerProviderType::new)
+    )
+    //.validate(BlockStateEnchantmentPowerProviderType::blocksHaveProperties)
+    ;
 
     // variables
     public final List<StatePowerProvider> providers;
@@ -38,13 +41,32 @@ public class BlockStateEnchantmentPowerProviderType implements EnchantmentPowerP
         this.isAdditive = isAdditive;
     }
 
+    // validator
+    /* (commenting this out until I get it working)
+    private static DataResult<BlockStateEnchantmentPowerProviderType> blocksHaveProperties(BlockStateEnchantmentPowerProviderType providerType) {
+        // go through each block in tag
+        for (RegistryEntry<Block> entry : Registries.BLOCK.iterateEntries(providerType.providerBlocksTag)) {
+            // check entry against each state provider
+            for (int i = 0; i < providerType.providers.size(); i++) {
+                StatePowerProvider provider = providerType.providers.get(i);
+                // check each state provider's states
+                for (int j = 0; j < provider.getStates().size(); j++) {
+                    StatePredicate statePredicate = provider.getStates().get(j);
+                    statePredicate.findMissing(entry.value().getStateManager()).map(property -> DataResult.error(() -> "Block " + entry.value() + " has no property " + property
+                    ));
+                }
+            }
+        }
+        return DataResult.success(providerType);
+    }
+    */
+
     // interface methods
     @Override
     public float getEnchantmentPower(World world, BlockPos pos) {
         BlockState state = world.getBlockState(pos);
         float amount = 0.0F;
-        for (int i = 0; i < providers.size(); i++) {
-            StatePowerProvider provider = providers.get(i);
+        for (StatePowerProvider provider : providers) {
             for (int j = 0; j < provider.getStates().size(); j++) {
                 StatePredicate statePredicate = provider.getStates().get(j);
                 if (statePredicate.test(state)) {
@@ -62,8 +84,7 @@ public class BlockStateEnchantmentPowerProviderType implements EnchantmentPowerP
         BlockState state = world.getBlockState(pos);
         if (!state.isIn(providerBlocksTag)) return false;
         // test states if it passes
-        for (int i = 0; i < providers.size(); i++) {
-            StatePowerProvider provider = providers.get(i);
+        for (StatePowerProvider provider : providers) {
             for (int j = 0; j < provider.getStates().size(); j++) {
                 StatePredicate statePredicate = provider.getStates().get(j);
                 if (statePredicate.test(state)) {

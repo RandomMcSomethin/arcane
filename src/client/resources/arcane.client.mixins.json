@@ -3,7 +3,7 @@
 	"package": "io.github.randommcsomethin.arcane.mixin.client",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
-      "ExampleClientMixin"
+
 	],
 	"injectors": {
 		"defaultRequire": 1
