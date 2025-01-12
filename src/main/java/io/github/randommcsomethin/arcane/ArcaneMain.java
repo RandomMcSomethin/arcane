@@ -76,7 +76,6 @@ public class ArcaneMain implements ModInitializer {
 			   }
 		   }
 		);
-		LOGGER.info("Hello Fabric world!");
 	}
 
 	// helper methods

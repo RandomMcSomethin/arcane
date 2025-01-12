@@ -6,8 +6,12 @@ In vanilla Minecraft, you can add entries to the `enchantment_power_provider` ta
 
 Arcane offers a solution by adding **data driven enchanting power providers**, which can be much more flexible in their parameters.
 
-## For Data Pack Developers:
+## Compatibility:
+Arcane does not interact in any way with vanilla nor modded enchanting power providers.  This decision was made to maintain mod compatibility first and foremost.  In addition, the additions to base code are simple and minimal.  However, there are a few areas where Arcane may run into compatibility issues, in particular with:
+- Mods that affect the enchanting table's detection radius.  Arcane mainly relies on vanilla functionality for this, so it may place nicely depending on how responsibly this change was implemented.  However, an increased radius may result in some funny business concerning obstruction detection due to how it is calculated (a copy of vanilla's detection system).
+- Mods that completely throw out the vanilla enchanting system.  It should be obvious why compatibility issues would arise here.
 
+## For Data Pack Developers:
 Your own enchanting power providers should be put in the `arcane/enchantment_power_provider` directory in the namespace folder in your data pack. For instance, a datapack called `more_magical_blocks` would have its enchanting power providers in `data/more_magical_blocks/arcane/enchantment_power_provider`.  The files themselves are formatted as JSON files that look something like this:
 ```json5
 {
