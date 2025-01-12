@@ -25,7 +25,7 @@ public class EnchantingTableBlockMixin {
         // check if block can be reached
         if (ArcaneMain.canReachBlock(world, tablePos, providerOffset)) {
             // maybe a little expensive, but should only run when a particle spawns AND if the block in question is reachable
-            Stream<RegistryEntry<EnchantmentPowerProviderType>> s = world.getRegistryManager().getOrThrow(ArcaneMain.CONFIGURED_ENCHANTMENT_POWER_PROVIDER_TYPES).streamEntries().map(reference -> reference);
+            Stream<RegistryEntry<EnchantmentPowerProviderType>> s = world.getRegistryManager().getWrapperOrThrow(ArcaneMain.CONFIGURED_ENCHANTMENT_POWER_PROVIDER_TYPES).streamEntries().map(reference -> reference);
             // check each power provider type
             for (RegistryEntry<EnchantmentPowerProviderType> powerProviderRef : s.toList()) {
                 EnchantmentPowerProviderType powerProvider = powerProviderRef.value();

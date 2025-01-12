@@ -32,7 +32,7 @@ public class EnchantmentScreenHandlerMixin {
 	@Inject(at = @At(value = "INVOKE", target = "Lnet/minecraft/util/math/random/Random;setSeed(J)V"), method = "method_17411(Lnet/minecraft/item/ItemStack;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V")
 	private void addMorePower(ItemStack itemStack, World world, BlockPos pos, CallbackInfo ci, @Local(ordinal = 0) LocalIntRef i) {
 		// add enchanting power like in vanilla but with data driven stuff
-		Stream<RegistryEntry<EnchantmentPowerProviderType>> s = world.getRegistryManager().getOrThrow(ArcaneMain.CONFIGURED_ENCHANTMENT_POWER_PROVIDER_TYPES).streamEntries().map(reference -> reference);
+		Stream<RegistryEntry<EnchantmentPowerProviderType>> s = world.getRegistryManager().getWrapperOrThrow(ArcaneMain.CONFIGURED_ENCHANTMENT_POWER_PROVIDER_TYPES).streamEntries().map(reference -> reference);
 		// using a float here for more granularity (it'll all make sense later I promise)
 		float extraPower = 0;
 		// check each power provider type
