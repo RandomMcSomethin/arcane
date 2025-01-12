@@ -13,12 +13,21 @@ Arcane is entirely server-side, so vanilla clients can connect to modded servers
 Arcane does not interact in any way with vanilla nor modded enchanting power providers.  This decision was made to maintain mod compatibility first and foremost.  In addition, the additions to base code are simple and minimal.  However, there are a few areas where Arcane may run into compatibility issues, in particular with:
 - Mods that affect the enchanting table's detection radius.  Arcane mainly relies on vanilla functionality for this, so it may place nicely depending on how responsibly this change was implemented.  However, an increased radius may result in some funny business concerning obstruction detection due to how it is calculated (a copy of vanilla's detection system).
 - Mods that completely throw out the vanilla enchanting system.  It should be obvious why compatibility issues would arise here.
+## Default Configuration:
+By default, Arcane includes a few examples of providers you can play around with both in-game and outside the game to see how they work.  These include:
+- Blocks that give 0.2 power - soul fire, soul torch, soul lantern
+- Blocks that give 1 power - sea lantern, crying obsidian
+- Blocks that give 3 power - all vanilla mob heads
+- Blocks that give 0.2 power when lit - soul campfire
+- Blocks that give 0.25 power for each candle when lit (1 power with 4 candles in 1 block) - candles
+- Blocks that give 0.5 power for each book stored (1.5 power for 6 books) - chiseled bookshelf
 
+If you wish to override these, you can overwrite their respective file inside the `arcane_test` data space.
 ## For Data Pack Developers:
 Your own enchanting power providers should be put in the `arcane/enchantment_power_provider` directory in the namespace folder in your data pack. For instance, a datapack called `more_magical_blocks` would have its enchanting power providers in `data/more_magical_blocks/arcane/enchantment_power_provider`.  The files themselves are formatted as JSON files that look something like this:
 ```json5
 {
-  "type": "namespaced:type_goes_here",
+  "type": "namespaced_type:goes_here",
   "provider_blocks": "#block_tag:goes_here"
   // extra parameters go here
 }
